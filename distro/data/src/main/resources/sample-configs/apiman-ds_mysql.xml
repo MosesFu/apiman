@@ -7,6 +7,18 @@
     <pool>
       <max-pool-size>30</max-pool-size>
     </pool>
+
+    <validation>
+      <!-- (STRING) Specify an SQL statement to check validity of a pool connection. This may be called when managed connection is obtained from the pool -->
+      <check-valid-connection-sql>select 1</check-valid-connection-sql>
+      <!-- (BOOLEAN) The validate-on-match element specifies if connection validation should be done when a connection factory attempts to match a managed connection. This is typically exclusive to the use of background validation -->
+      <validate-on-match>false</validate-on-match>
+      <!-- (BOOLEAN) An element to specify that connections should be validated on a background thread versus being validated prior to use. Changing this value can be done only on disabled datasource,  requires a server restart otherwise. -->
+      <background-validation>true</background-validation>
+      <!-- (LONG) The background-validation-millis element specifies the amount of time, in milliseconds, that background validation will run. Changing this value can be done only on disabled datasource,  requires a server restart otherwise -->
+      <background-validation-millis>10000</background-validation-millis>
+    </validation>
+
     <security>
       <user-name>DBUSER</user-name>
       <password>DBPASS</password>

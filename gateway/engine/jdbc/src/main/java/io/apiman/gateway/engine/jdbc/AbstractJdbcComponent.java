@@ -16,6 +16,7 @@
 
 package io.apiman.gateway.engine.jdbc;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 import javax.naming.InitialContext;
@@ -36,11 +37,16 @@ public abstract class AbstractJdbcComponent {
      * @param config map of configuration options
      */
     public AbstractJdbcComponent(Map<String, String> config) {
-        String dsJndiLocation = config.get("datasource.jndi-location"); //$NON-NLS-1$
-        if (dsJndiLocation == null) {
-            throw new RuntimeException("Missing datasource JNDI location from JdbcRegistry configuration."); //$NON-NLS-1$
+        if (config.containsKey("datasource.jndi-location")) {
+            String dsJndiLocation = config.get("datasource.jndi-location"); //$NON-NLS-1$
+            if (dsJndiLocation == null) {
+                throw new RuntimeException("Missing datasource JNDI location from JdbcRegistry configuration."); //$NON-NLS-1$
+            }
+            ds = lookupDS(dsJndiLocation);
+        } else {
+            JdbcDataSourceInitializer jdsi = JdbcDataSourceInitializer.getInstance(config);
+            ds = jdsi.getDatasource();
         }
-        ds = lookupDS(dsJndiLocation);
     }
     
     /**
