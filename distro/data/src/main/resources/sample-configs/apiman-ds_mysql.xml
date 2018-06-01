@@ -3,7 +3,7 @@
   <datasource jndi-name="java:jboss/datasources/apiman-manager" pool-name="apiman-manager-api" enabled="true"
     use-java-context="true">
     <connection-url>jdbc:mysql://MYSQLSERVER:3306/apiman</connection-url>
-    <driver>mysql-connector-java-5.1.33-bin.jar_com.mysql.jdbc.Driver_5_1</driver>
+    <driver>mysqlDriver</driver>
     <pool>
       <max-pool-size>30</max-pool-size>
     </pool>
