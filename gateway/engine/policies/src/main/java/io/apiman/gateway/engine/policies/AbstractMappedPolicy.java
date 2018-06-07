@@ -49,6 +49,10 @@ public abstract class AbstractMappedPolicy<C> implements IPolicy {
     @Override
     public C parseConfiguration(String jsonConfiguration) throws ConfigurationParseException {
         try {
+
+            //TODO forTest
+            System.out.println("jsonConfig:" + jsonConfiguration);
+
             return mapper.reader(getConfigurationClass()).readValue(jsonConfiguration);
         } catch (Exception e) {
             throw new ConfigurationParseException(e);

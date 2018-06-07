@@ -96,8 +96,16 @@ public class TimeRestrictedAccessPolicy extends AbstractMappedPolicy<TimeRestric
             DateTime currentTime = new DateTime(DateTimeZone.UTC);
             for (TimeRestrictedAccess rule : rulesEnabledForPath) {
                 boolean matchesDay = matchesDay(currentTime, rule);
+
+                //TODO forTest
+                System.out.println("matchDay:" + matchesDay);
+
                 if (matchesDay) {
                     boolean matchesTime = matchesTime(rule);
+
+                    //TODO forTest
+                    System.out.println("matchTime:" + matchesTime);
+
                     if (matchesTime) {
                         return true;
                     }
@@ -141,7 +149,10 @@ public class TimeRestrictedAccessPolicy extends AbstractMappedPolicy<TimeRestric
         long endMs = end.getTime();
         DateTime currentTime = new LocalTime(DateTimeZone.UTC).toDateTime(new DateTime(0l));
         long nowMs = currentTime.toDate().getTime();
-        
+
+        //TODO forTest
+        System.out.println("nM:" + nowMs + ", sM:" + startMs + ", eM:" + endMs);
+
         return nowMs >= startMs && nowMs < endMs;
     }
 
@@ -158,7 +169,7 @@ public class TimeRestrictedAccessPolicy extends AbstractMappedPolicy<TimeRestric
         if (dayStart >= dayEnd) {
             return dayNow >= dayStart && dayNow <= dayEnd;
         } else {
-            return dayNow <= dayEnd && dayNow <= dayStart;
+            return dayNow <= dayEnd && dayNow >= dayStart;
         }
     }
 }
